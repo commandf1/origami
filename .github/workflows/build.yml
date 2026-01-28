@@ -1,8 +1,7 @@
 name: Publish
 
 on:
-  release:
-    types: [ created ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -22,8 +21,10 @@ jobs:
         with:
           cache-disabled: true
 
-      - name: Publish to xenondevs repository
-        run: ./gradlew publish
-        env:
-          ORG_GRADLE_PROJECT_xenondevsUsername: ${{ secrets.XENONDEVS_RELEASES_USERNAME }}
-          ORG_GRADLE_PROJECT_xenondevsPassword: ${{ secrets.XENONDEVS_RELEASES_PASSWORD }}
+      - name: Build
+        run: ./gradlew build -x test
+      - name: Upload
+        uses: actions/upload-artifact@v6
+        with:
+          name: "built stuff"
+          path: "."
