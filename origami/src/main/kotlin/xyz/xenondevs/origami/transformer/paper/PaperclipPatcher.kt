@@ -26,12 +26,12 @@ object PaperclipPatcher {
         val node = getPaperclipNode(appClassLoader)
         patchMain(node)
         val bytecode = node.assemble()
-        val paperclipClass = appClassLoader.loadClass("io.papermc.paperclip.Paperclip")
+        val paperclipClass = appClassLoader.loadClass("cn.dreeam.leaper.QuantumLeaper")
         instrumentation.redefineClasses(ClassDefinition(paperclipClass, bytecode))
     }
     
     fun getPaperclipNode(appClassLoader: ClassLoader): ClassNode {
-        val bytes = appClassLoader.getResourceAsStream("io/papermc/paperclip/Paperclip.class")?.use(InputStream::readBytes)
+        val bytes = appClassLoader.getResourceAsStream("cn/dreeam/leaper/QuantumLeaper.class")?.use(InputStream::readBytes)
             ?: throw IllegalStateException("Paperclip class not found")
         
         val node = ClassNode()
