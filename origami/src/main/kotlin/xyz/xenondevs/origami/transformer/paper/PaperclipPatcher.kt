@@ -31,8 +31,9 @@ object PaperclipPatcher {
     }
     
     fun getPaperclipNode(appClassLoader: ClassLoader): ClassNode {
+        println(appClassLoader)
         val bytes = appClassLoader.getResourceAsStream("cn/dreeam/leaper/QuantumLeaper.class")?.use(InputStream::readBytes)
-            ?: throw IllegalStateException("Paperclip class not found")
+            ?: throw IllegalStateException("QuantumLeaper class not found")
         
         val node = ClassNode()
         ClassReader(bytes).accept(node, ClassReader.SKIP_FRAMES)
